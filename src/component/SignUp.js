@@ -1,14 +1,22 @@
 import react,{Fragment,useRef} from 'react'
 import { Button, Container, Form, Row,Col } from 'react-bootstrap';
 import backgroundImg from '../images/yuriy-kovalev-nN1HSDtKdlw-unsplash.jpg'
+import { authSignUp } from '../ReduxStore/fetchAuthActions';
+import { useSelector,useDispatch } from 'react-redux';
 const SignUp=()=>{
 const emailRef=useRef()
 const passwordRef=useRef()
 const confirmPasswordRef=useRef()
+const dispatch=useDispatch()
  const signUpHandler=(event)=>{
   event.preventDefault()
+  const data={
+    email:emailRef.current.value,
+    password:passwordRef.current.value,
+    returnSecureToken:true
+  }
+  dispatch(authSignUp(data))
 
-  console.log('email: '+emailRef.current.value+'password: '+passwordRef.current.value+'confirmPassword: '+confirmPasswordRef.current.value)
  }
     return(
         <Fragment>
