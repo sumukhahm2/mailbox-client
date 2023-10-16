@@ -9,14 +9,12 @@ export const authSignUp=(item)=>{
             body:JSON.stringify(item) 
          })
 
-         if(!response.ok)
-         {
-            throw new Error('Something Went Wrong!')
-         }
+        
          const data=await response.json()
          if(data && data.error && data.error.message)
          {
            errorMessage=data.error.message
+           console.log(errorMessage)
            dispatch(authActions.setAuthError(errorMessage))
          }
          if(data.idToken)
@@ -26,13 +24,44 @@ export const authSignUp=(item)=>{
          }
     }
 
-    try{
         await postData()
+    
+   
+        
+    
+     
+
+  }
+}
+
+export const authLogIn=(item)=>{
+  return async(dispatch)=>{
+    let errorMessage='Authentication Error'
+    async function postData() {
+        const response=await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyA6gKTkFX7jOB0_y5l32LCnSImer0FA-So',{
+            method:'POST',
+            body:JSON.stringify(item) 
+         })
+
+       
+         const data=await response.json()
+         if(data && data.error && data.error.message)
+         {
+           errorMessage=data.error.message
+           
+           dispatch(authActions.setAuthError(errorMessage))
+         }
+         if(data.idToken)
+         {
+            dispatch(authActions.setToken(data.idToken))
+            dispatch(authActions.login())
+            console.log(data)
+         }
     }
-    catch(error)
-    {
-        dispatch(authActions.setAuthError(error))
-    }
+
+  
+        await postData()
+   
      
 
   }

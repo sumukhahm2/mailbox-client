@@ -13,10 +13,12 @@ const AuthSlice=createSlice({
     reducers:
     {
         login(state){
-          state.isAuthenticated=true
+          state.isAuthenticated=!!state.token
+          console.log(state.isAuthenticated)
         },
         setToken(state,action){
          state.token=action.payload
+         localStorage.setItem('token',action.payload)
         },
         setAuthError(state,action){
          state.authError=action.payload

@@ -1,0 +1,17 @@
+
+.form{
+    justify-content: center;
+    text-align: center;
+    background-color:#ffffff;
+    border: 1px solid black;
+    opacity: 0.8;
+}
+.button{
+    opacity: 1;
+}
+.authentication{
+    height: 100vh;
+    background-image: url('C:\Users\VIGNESHA\mailbox-client\src\images\pexels-miguel-á-padriñán-1591062.jpg');
+    background-repeat: no-repeat;
+    background-size:100%;
+}
