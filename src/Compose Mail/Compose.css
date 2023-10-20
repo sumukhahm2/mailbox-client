@@ -1,0 +1,45 @@
+.profile-image{
+    width:20px;
+    height: 20px;
+
+}
+.email-col p{
+    width:50px;
+}
+.email-col input{
+    border: none;
+    margin-left: 20px;
+    
+}
+.email-col input:focus{
+    outline: none;
+}
+
+.subject-input input{
+    border: none;
+    
+}
+.subject-input input:focus{
+    outline: none;
+    
+}
+.description-area{
+    height: 25rem;
+    overflow: hidden;
+}
+.side-panel img{
+    width:90px;
+    margin-top: 20px;
+}
+.side-panel{
+    border-right: 1px ridge black;
+}
+.side-panel button {
+    border: none;
+    cursor: pointer;
+    appearance: none;
+    background-color: inherit;
+  }
+
+
+

@@ -17,8 +17,9 @@ const AuthSlice=createSlice({
           console.log(state.isAuthenticated)
         },
         setToken(state,action){
-         state.token=action.payload
-         localStorage.setItem('token',action.payload)
+         state.token=action.payload.idToken
+         localStorage.setItem('token',action.payload.idToken)
+         localStorage.setItem('email',action.payload.email)
         },
         setAuthError(state,action){
          state.authError=action.payload

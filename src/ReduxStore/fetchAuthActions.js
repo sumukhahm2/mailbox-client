@@ -53,7 +53,7 @@ export const authLogIn=(item)=>{
          }
          if(data.idToken)
          {
-            dispatch(authActions.setToken(data.idToken))
+            dispatch(authActions.setToken({idToken:data.idToken,email:data.email}))
             dispatch(authActions.login())
             console.log(data)
          }
