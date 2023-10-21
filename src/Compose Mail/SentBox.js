@@ -8,7 +8,7 @@ const SentBox=()=>{
         <Fragment>
       <Container className='sentbox'>
       { sentMails.map(item=> <Card className='shadow-lg' key={item.id}>
-          <Card.Title>To-{item.email}</Card.Title>
+          <Card.Title>To-{item.toemail}</Card.Title>
           <Card.Header>{item.subject}</Card.Header>
           <Card.Body>{item.description}</Card.Body>
        </Card>)}

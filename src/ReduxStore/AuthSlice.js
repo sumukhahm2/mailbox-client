@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const defaultAuthSlice={
     isAuthenticated:false,
-    token:'',
+    token:null,
     authError:''
 
 }
@@ -17,9 +17,12 @@ const AuthSlice=createSlice({
           console.log(state.isAuthenticated)
         },
         setToken(state,action){
-         state.token=action.payload.idToken
-         localStorage.setItem('token',action.payload.idToken)
-         localStorage.setItem('email',action.payload.email)
+        
+            state.token=action.payload.idToken
+            localStorage.setItem('token',action.payload.idToken)
+            localStorage.setItem('email',action.payload.email)
+        
+        
         },
         setAuthError(state,action){
          state.authError=action.payload

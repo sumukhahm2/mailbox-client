@@ -11,6 +11,7 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css"
 import { senderData } from '../ReduxStore/FetchEmailData';
 import SentBox from './SentBox';
 import ComposeIcon from '../images/new-email.png'
+import Inbox from './Inbox';
 const Compose=()=>{
     const dispatch=useDispatch()
     const emailFieldRef=useRef()
@@ -18,6 +19,7 @@ const Compose=()=>{
     const [editorState,setState]=useState(EditorState.createEmpty())
     const [isSentBox,setSentBox]=useState(false)
     const [isCompose,setCompose]=useState(false)
+    const [isInbox,setInbox]=useState(false)
   const onEditorStateChange = (editorState) => {
    
    setState(editorState)
@@ -26,7 +28,8 @@ const Compose=()=>{
     const onSubmitCompose=(event)=>{
       event.preventDefault()
       const sendingData={
-        email:emailFieldRef.current.value,
+        fromemail:localStorage.getItem('email'),
+        toemail:emailFieldRef.current.value,
         subject:subjectRef.current.value,
         description:editorState.getCurrentContent().getPlainText()
       }
@@ -36,10 +39,17 @@ const Compose=()=>{
     const sentBoxButtonHandler=()=>{
      setSentBox(true)
      setCompose(false)
+     setInbox(false)
     }
     const composeButtonHandler=()=>{
       setCompose(true)
        setSentBox(false)
+       setInbox(false)
+    }
+    const inboxButtonHandler=()=>{
+      setInbox(true)
+       setSentBox(false)
+       setCompose(false)
     }
     return(
      <Fragment>
@@ -51,7 +61,7 @@ const Compose=()=>{
               <h5>Compose</h5>
               </Row>
               <Row>
-              <button><img src={inboxIcon}/></button>
+              <button onClick={inboxButtonHandler}><img src={inboxIcon}/></button>
               <h5>Inbox</h5>
               </Row>
               <Row>
@@ -124,6 +134,7 @@ const Compose=()=>{
             </Row>
             </Form> }
             {isSentBox  && <SentBox/>}
+            {isInbox  && <Inbox/>}
             </Col>
             
           </Row>

@@ -10,14 +10,20 @@ import Compose from './Compose Mail/Compose';
 import { fetchSentData } from './ReduxStore/FetchEmailData';
 function App() {
   const dispatch=useDispatch()
-  useEffect(()=>{
-     dispatch(authActions.setToken(localStorage.getItem('token')))
-     dispatch(authActions.login())
-  },[])
-  useEffect(()=>{
-  dispatch(fetchSentData())
-  },[dispatch])
   const login=useSelector((state)=>state.auth.isAuthenticated)
+  useEffect(()=>{
+    if(localStorage.getItem('email') && localStorage.getItem('token'))
+     dispatch(authActions.setToken({idToken:localStorage.getItem('token'),email:localStorage.getItem('email')}))
+     dispatch(authActions.login())
+  },[dispatch])
+ 
+    useEffect(()=>{
+      if(localStorage.getItem('email') && localStorage.getItem('token'))
+      dispatch(fetchSentData())
+      },[dispatch])
+      
+  
+  
  
   return (
     <div className="App">
