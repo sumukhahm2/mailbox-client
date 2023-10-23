@@ -41,8 +41,26 @@ export const fetchSentData=()=>{
             j++
         }
        
-       console.log(a)
+        const count=a.reduce((prev,cur)=>{
+           return prev+cur.unread
+        },0)
+       console.log(count)
         dispatch(inboxActions.addInboxMail(a))
+        dispatch(inboxActions.addUnreadCount(count))
         dispatch(sentBoxActions.addSentBoxMails(arr))
+    }
+}
+
+export const updateEmailData=(item)=>{
+    return async(dispatch)=>{
+        const email=localStorage.getItem('email').split('@')[0]
+      const response=await fetch(`https://mailbox-client-67adc-default-rtdb.firebaseio.com/to${email}/${item.id}.json`,{
+        method:'PUT',
+        body:JSON.stringify({...item,read:true,unread:0})
+      })
+      const data=await response.json()
+      console.log(data)
+      dispatch(inboxActions.inboxRead())
+      dispatch(inboxActions.deleteUnreadCount())
     }
 }

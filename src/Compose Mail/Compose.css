@@ -28,7 +28,7 @@
     overflow: hidden;
 }
 .side-panel img{
-    width:90px;
+    width:50px;
     margin-top: 20px;
 }
 .side-panel{
@@ -40,6 +40,21 @@
     appearance: none;
     background-color: inherit;
   }
-
+  .compose-form{
+    margin-right: 50px;
+    
+  }
+.compose-form-col{
+    border-right: 2px ridge black;
+}
+.unread-count{
+    position:absolute;
+    left:3%;
+    font-weight: bolder;
+    border: 2px ridge rgb(124, 119, 117);
+ border-radius: 10px;
+  
+   
+}
 
 

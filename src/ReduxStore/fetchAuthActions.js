@@ -62,7 +62,7 @@ export const authLogIn=(item)=>{
   
         await postData()
    
-     
+        window.location.reload()
 
   }
 }

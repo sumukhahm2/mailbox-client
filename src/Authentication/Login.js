@@ -17,8 +17,10 @@ const navigate=useNavigate()
     password:passwordRef.current.value,
     returnSecureToken:true
   }
+  
   dispatch(authLogIn(data))
-  navigate('/welcome')
+  
+ 
 
  }
     return(

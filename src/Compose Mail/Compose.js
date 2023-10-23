@@ -20,6 +20,7 @@ const Compose=()=>{
     const [isSentBox,setSentBox]=useState(false)
     const [isCompose,setCompose]=useState(false)
     const [isInbox,setInbox]=useState(false)
+    const unread=useSelector((state)=> state.inbox.unreadCount)
   const onEditorStateChange = (editorState) => {
    
    setState(editorState)
@@ -31,7 +32,9 @@ const Compose=()=>{
         fromemail:localStorage.getItem('email'),
         toemail:emailFieldRef.current.value,
         subject:subjectRef.current.value,
-        description:editorState.getCurrentContent().getPlainText()
+        description:editorState.getCurrentContent().getPlainText(),
+        read:false,
+        unread:1
       }
       dispatch(senderData(sendingData))
       
@@ -61,7 +64,7 @@ const Compose=()=>{
               <h5>Compose</h5>
               </Row>
               <Row>
-              <button onClick={inboxButtonHandler}><img src={inboxIcon}/></button>
+              <button onClick={inboxButtonHandler}><img src={inboxIcon}/><span className='unread-count'>{unread} unread</span></button>
               <h5>Inbox</h5>
               </Row>
               <Row>
@@ -70,8 +73,8 @@ const Compose=()=>{
               </Row>
             
             </Col>
-            <Col>
-            {isCompose &&  <Form onSubmit={onSubmitCompose}>
+            <Col className='compose-form-col'>
+            {isCompose &&  <Form onSubmit={onSubmitCompose} className='compose-form'>
              <Row>
              <Col className='col-10 email-col d-flex'>
                 <p className='mt-3'>To</p>
