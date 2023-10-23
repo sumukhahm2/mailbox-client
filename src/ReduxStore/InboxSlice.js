@@ -22,6 +22,11 @@ const inboxSlice=createSlice({
         deleteUnreadCount(state){
             if(state.unreadCount>0)
               state.unreadCount=state.unreadCount-1
+        },
+        deleteMails(state,action){
+          state.inboxdata=state.inboxdata.filter((obj)=>{
+            return action.payload!==obj.id
+          })
         }
     }
 })
