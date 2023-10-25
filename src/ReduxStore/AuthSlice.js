@@ -21,11 +21,17 @@ const AuthSlice=createSlice({
             state.token=action.payload.idToken
             localStorage.setItem('token',action.payload.idToken)
             localStorage.setItem('email',action.payload.email)
+            state.isAuthenticated=!!state.token
         
         
         },
         setAuthError(state,action){
          state.authError=action.payload
+        },
+        logout(state){
+            state.token=null
+            localStorage.removeItem('token')
+            localStorage.removeItem('email')
         }
 
     }

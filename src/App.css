@@ -1,10 +1,8 @@
-
-
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.main{
+  position: relative;
+  margin-top: 2rem;
+  height: 1500px;
+  overflow: scroll;
 }
 
 

@@ -10,6 +10,15 @@ const sentBoxSlice=createSlice({
     reducers:{
         addSentBoxMails(state,action){
            state.sentMails=state.sentMails.concat(action.payload)
+        },
+        deleteSentMails(state,action){
+            state.sentMails=state.sentMails.filter((obj)=>{
+                return action.payload!==obj.id
+            })
+        },
+        addMails(state,action){
+            if(state.sentMails.length!==action.payload.length)
+            state.sentMails=state.sentMails.concat(action.payload)
         }
     }
 })

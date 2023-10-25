@@ -11,13 +11,11 @@ const inboxSlice=createSlice({
     initialState:defaultState,
     reducers:{
         addInboxMail(state,action){
+           
             state.inboxdata=state.inboxdata.concat(action.payload)
         },
         inboxRead(state){
             state.read=true
-        },
-        addUnreadCount(state,action){
-         state.unreadCount=state.unreadCount+action.payload
         },
         deleteUnreadCount(state){
             if(state.unreadCount>0)
@@ -27,9 +25,22 @@ const inboxSlice=createSlice({
           state.inboxdata=state.inboxdata.filter((obj)=>{
             return action.payload!==obj.id
           })
+        },
+        addMail(state,action){
+            if(state.inboxdata.length!==action.payload.length)
+            {
+                state.inboxdata=[]
+                state.unreadCount=0
+                const count=action.payload.reduce((prev,cur)=>{
+                    return prev+cur.unread
+                 },0)
+                 state.inboxdata=state.inboxdata.concat(action.payload)
+                 state.unreadCount=state.unreadCount+count
+            }
+              
         }
-    }
-})
+        }
+    })
 
 export const inboxActions=inboxSlice.actions
 

@@ -1,3 +1,7 @@
+.main-page{
+    margin-top: 80px;
+}
+
 .profile-image{
     width:20px;
     height: 20px;
@@ -24,7 +28,7 @@
     
 }
 .description-area{
-    height: 25rem;
+    height: 18rem;
     overflow: hidden;
 }
 .side-panel img{
@@ -32,19 +36,25 @@
     margin-top: 20px;
 }
 .side-panel{
+   
     border-right: 1px ridge black;
+   
+    height: 35rem;
 }
 .side-panel button {
+    margin-top: 20px;
     border: none;
     cursor: pointer;
     appearance: none;
     background-color: inherit;
   }
   .compose-form{
+    margin-top: 20px;
     margin-right: 50px;
     
   }
 .compose-form-col{
+    margin-left: 10px;
     border-right: 2px ridge black;
 }
 .unread-count{

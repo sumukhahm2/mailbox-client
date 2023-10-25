@@ -1,5 +1,7 @@
 import { sentBoxActions } from "./SentBoxSlice"
 import { inboxActions } from "./InboxSlice"
+
+
 export const senderData=(sendingData)=>{
     return async(dispatch)=>{
         const fromEmail=localStorage.getItem('email').split('@')[0]
@@ -19,8 +21,11 @@ export const senderData=(sendingData)=>{
     }
 }
 
-export const fetchSentData=()=>{
+export const fetchSentData=(item)=>{
+    
     return async(dispatch)=>{
+       async function fetchData()
+        {
         const email=localStorage.getItem('email').split('@')[0]
         const response=await fetch(`https://mailbox-client-67adc-default-rtdb.firebaseio.com/from${email}.json`)
         const data=await response.json()
@@ -41,14 +46,22 @@ export const fetchSentData=()=>{
             j++
         }
        
-        const count=a.reduce((prev,cur)=>{
-           return prev+cur.unread
-        },0)
-       console.log(count)
-        dispatch(inboxActions.addInboxMail(a))
-        dispatch(inboxActions.addUnreadCount(count))
-        dispatch(sentBoxActions.addSentBoxMails(arr))
+       
+        
+       
+      
+        dispatch(inboxActions.addMail(a))
+        dispatch(sentBoxActions.addMails(arr))
     }
+
+try{
+    await fetchData()
+  }
+  catch(error){
+
+  }
+  
+}
 }
 
 export const updateEmailData=(item)=>{
@@ -74,5 +87,16 @@ export const deleteEmail=(id)=>{
        const data=await response.json()
        console.log(data)
        dispatch(inboxActions.deleteMails(id))
+    }
+  }
+  export const deleteSentEmail=(id)=>{
+    return async(dispatch)=>{
+        const email=localStorage.getItem('email').split('@')[0]
+       const response=await fetch(`https://mailbox-client-67adc-default-rtdb.firebaseio.com/from${email}/${id}.json`,{
+        method:'DELETE'
+       })
+       const data=await response.json()
+       console.log(data)
+       dispatch(sentBoxActions.deleteSentMails(id))
     }
   }

@@ -1,0 +1,10 @@
+.navbar2{
+    width:100%;
+    top: 60px ;
+    background-color: white;
+    z-index: 1;
+    overflow: hidden;
+}
+.me-auto-navbar2{
+    margin-left: 200px;
+}

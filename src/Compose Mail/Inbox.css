@@ -1,10 +1,59 @@
-.subject-description{
-    width: auto;
-    position: relative;
-}
+
 .dot{
     width:10px;
     height: 10px;
     margin-top: 10px;
     margin-right: 5px;
 }
+
+.inbox-card button{
+    background: none;
+    border: none;
+}
+.inbox-card .delete-col{
+    display: none;
+  }
+  
+  .inbox-card:hover .delete-col{
+      display: block;
+      
+  }
+  .inbox-card:hover .time-col{
+    display: none;
+  }
+  .star {
+    visibility:hidden;
+    position: absolute;
+
+    font-size:20px;
+    cursor:pointer;
+}
+.star:before {
+    content: "\2606";
+    position: relative;
+    visibility:visible;
+    color: black;
+   
+ }
+ .star:checked:before {
+    content: "\2605";
+    position: relative;
+    color: yellow;
+ }
+ .checkbox{
+    margin-left: 2px;
+    margin-top: 11px;
+ }
+ .delete-col span{
+    display: none;
+    position: absolute;
+    border: 1px ridge black;
+    top:40px;
+    z-index: 1;
+ }
+ i:hover+span{
+   display: block;
+ }
+ button:hover+span{
+    display: block;
+ }

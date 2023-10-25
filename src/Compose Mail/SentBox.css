@@ -1,3 +1,22 @@
 .sentbox{
     height: 100vh;
 }
+.sentbox-card .delete-col{
+  display: none;
+}
+
+.sentbox-card:hover .delete-col{
+    display: block;
+    
+}
+.sentbox-card:hover .date-time{
+    display: none;
+}
+.sentbox-card button{
+    background: none;
+    border: none;
+}
+.date-time{
+    font-size: smaller;
+    margin-top: 5px;
+}

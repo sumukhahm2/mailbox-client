@@ -27,7 +27,7 @@ const navigate=useNavigate()
         <Fragment>
             <Container className=' authentication' fluid>
             
-                <Row>
+                <Row >
                     <Col className='col-4'></Col>
                     
                     <Col className='col-4 form m-5' >

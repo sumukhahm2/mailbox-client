@@ -1,0 +1,13 @@
+.logo{
+    height: 50px;
+}
+.navbar{
+    background-color: rgb(233, 100, 238);
+    height: 60px;
+}
+.me-auto{
+    position:absolute ;
+    right: 20%;
+    top: 0;
+}
+

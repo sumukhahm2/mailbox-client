@@ -10,7 +10,10 @@ import { Editor } from 'react-draft-wysiwyg';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css"
 import { senderData } from '../ReduxStore/FetchEmailData';
 import SentBox from './SentBox';
+import { Days } from '../DateFormat/DateFormat';
 import ComposeIcon from '../images/new-email.png'
+
+
 import Inbox from './Inbox';
 const Compose=()=>{
     const dispatch=useDispatch()
@@ -28,15 +31,20 @@ const Compose=()=>{
   
     const onSubmitCompose=(event)=>{
       event.preventDefault()
+     
       const sendingData={
         fromemail:localStorage.getItem('email'),
         toemail:emailFieldRef.current.value,
         subject:subjectRef.current.value,
         description:editorState.getCurrentContent().getPlainText(),
         read:false,
-        unread:1
+        unread:1,
+        date:new Date()
+       
       }
       dispatch(senderData(sendingData))
+     
+     
       
     }
     const sentBoxButtonHandler=()=>{
@@ -56,15 +64,15 @@ const Compose=()=>{
     }
     return(
      <Fragment>
-       <Container className='border' fluid>
+       <Container className='border main-page' fluid>
           <Row>
             <Col className='col-1 side-panel'>
-            <Row>
+            <Row >
             <button onClick={composeButtonHandler}><img src={ComposeIcon}/></button>
               <h5>Compose</h5>
               </Row>
               <Row>
-              <button onClick={inboxButtonHandler}><img src={inboxIcon}/><span className='unread-count'>{unread} unread</span></button>
+              <button onClick={inboxButtonHandler}><img src={inboxIcon}/>{unread>0 && <span className='unread-count'>{unread} unread</span>}</button>
               <h5>Inbox</h5>
               </Row>
               <Row>

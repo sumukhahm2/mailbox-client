@@ -8,6 +8,8 @@ import { authActions } from './ReduxStore/AuthSlice';
 import { useSelector,useDispatch } from 'react-redux';
 import Compose from './Compose Mail/Compose';
 import { fetchSentData } from './ReduxStore/FetchEmailData';
+import NavBar from './NavBar/NavBar';
+import NavBar2 from './NavBar/NavBar2';
 function App() {
   const dispatch=useDispatch()
   const login=useSelector((state)=>state.auth.isAuthenticated)
@@ -18,19 +20,24 @@ function App() {
   },[dispatch])
  
     useEffect(()=>{
-      if(localStorage.getItem('email') && localStorage.getItem('token'))
-      dispatch(fetchSentData())
+        if(localStorage.getItem('email') && localStorage.getItem('token'))
+        dispatch(fetchSentData())
+      
       },[dispatch])
       
-  
+  setInterval(()=>{
+    if(localStorage.getItem('email') && localStorage.getItem('token'))
+    dispatch(fetchSentData())
+  },2000)
   
  
   return (
     <div className="App">
       <header className="App-header">
-       
+       <NavBar/>
+       {login && <NavBar2/>}
       </header>
-      <main>
+      <main className='main'>
         <Routes>
           {!login && <Route path='/signup' element={<SignUp/>}/>}
           {!login && <Route path='/login' element={<LogIn/>}/>}
