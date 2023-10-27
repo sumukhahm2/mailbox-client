@@ -1,8 +1,8 @@
 .main{
   position: relative;
   margin-top: 2rem;
-  height: 1500px;
-  overflow: scroll;
+  height: 620px;
+ overflow-y: scroll;
 }
 
 

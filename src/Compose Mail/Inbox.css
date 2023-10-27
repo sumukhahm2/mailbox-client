@@ -1,4 +1,6 @@
-
+.inbox{
+  height: 100vh;
+}
 .dot{
     width:10px;
     height: 10px;
@@ -57,3 +59,34 @@
  button:hover+span{
     display: block;
  }
+ 
+ .profile-image{
+  width: 50px;
+  height: 50px;
+ }
+ .discription-area{
+  height: 20rem;
+ }
+ .inbox-card{
+  cursor: pointer;
+ 
+ }
+ .inbox-card:hover{
+  background-color: rgb(202, 195, 195);
+ }
+ 
+ .inbox-read-card button{
+  background: none;
+  border: none;
+}
+.inbox-read-card .delete-col{
+  display: none;
+}
+
+.inbox-read-card:hover .delete-col{
+    display: block;
+    
+}
+.inbox-read-card:hover .time-col{
+  display: none;
+}

@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const defaultState={
     inboxdata:[],
-    read:false,
     unreadCount:0
 }
 
@@ -12,10 +11,13 @@ const inboxSlice=createSlice({
     reducers:{
         addInboxMail(state,action){
            
-            state.inboxdata=state.inboxdata.concat(action.payload)
+            state.inboxdata.pusht(action.payload)
         },
-        inboxRead(state){
-            state.read=true
+        inboxRead(state,action){
+           const indx=state.inboxdata.findIndex((obj)=> obj.id===action.payload.id)
+          state.inboxdata[indx]={...state.inboxdata[indx],read:true}
+           
+
         },
         deleteUnreadCount(state){
             if(state.unreadCount>0)

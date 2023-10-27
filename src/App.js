@@ -6,8 +6,8 @@ import LogIn from './Authentication/Login';
 import Welcome from './Welcome';
 import { authActions } from './ReduxStore/AuthSlice';
 import { useSelector,useDispatch } from 'react-redux';
+import useFetch from './CustomHooks/useFetch';
 import Compose from './Compose Mail/Compose';
-import { fetchSentData } from './ReduxStore/FetchEmailData';
 import NavBar from './NavBar/NavBar';
 import NavBar2 from './NavBar/NavBar2';
 function App() {
@@ -18,16 +18,27 @@ function App() {
      dispatch(authActions.setToken({idToken:localStorage.getItem('token'),email:localStorage.getItem('email')}))
      dispatch(authActions.login())
   },[dispatch])
- 
+   let email=''
+   if(login)
+   {
+    email=localStorage.getItem('email').split('@')[0]
+   }
+     
+    const [inboxRequest]=useFetch(`https://mailbox-client-database-default-rtdb.firebaseio.com//to${email}.json`,'INBOX')
+    const [sentboxRequest]=useFetch(`https://mailbox-client-database-default-rtdb.firebaseio.com//from${email}.json`,'SENTBOX')
+   
+    
+
     useEffect(()=>{
-        if(localStorage.getItem('email') && localStorage.getItem('token'))
-        dispatch(fetchSentData())
-      
-      },[dispatch])
-      
+       inboxRequest()
+       sentboxRequest()
+    },[])  
   setInterval(()=>{
     if(localStorage.getItem('email') && localStorage.getItem('token'))
-    dispatch(fetchSentData())
+    {
+      inboxRequest()
+       sentboxRequest()
+    }
   },2000)
   
  

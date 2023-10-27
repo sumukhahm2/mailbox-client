@@ -1,26 +1,35 @@
-import React,{Fragment} from 'react'
+import React,{Fragment,useState} from 'react'
 import { Card, Container,Col,Row } from 'react-bootstrap'
 import { useSelector,useDispatch } from 'react-redux'
-import { deleteSentEmail } from '../ReduxStore/FetchEmailData'
+import InboxDetail from './InboxDetail'
 import DateFormat from '../DateFormat/DateFormat'
+import useFetch from '../CustomHooks/useFetch'
 import './SentBox.css'
 const SentBox=()=>{
+  const [showpage,setPage]=useState()
+  const [request,sendData,deleteEmail]=useFetch('https://mailbox-client-database-default-rtdb.firebaseio.com')
   const sentMails=useSelector((state)=>state.sentbox.sentMails)
  const dispatch=useDispatch()
   const deleteSentBoxMail=(id)=>{
-    dispatch(deleteSentEmail(id))
+    console.log(id)
+    deleteEmail(id,'SENTBOX')
   }
   let date=new Date().getTime()
   const favouriteHandler=()=>{
     
   }
+  const sentboxDetailPageHandler=(item)=>{
+    setPage(item)
+       
+   }
     return(
         <Fragment>
-      <Container className='sentbox'>
-      { sentMails.map(item=> <Card className='shadow-lg mt-2 sentbox-card' key={item.id}>
+          {showpage && <InboxDetail item={showpage} email={showpage.toemail}/>}
+     {!showpage && <Container className='sentbox'>
+      {sentMails.length===0?<h3 className='text-center m-2'>No Sent Messages</h3>:sentMails.map(item=> <Card className='shadow-lg mt-2 sentbox-card' key={item.id}>
         <Row >
           <Col className='col-9'>
-          <a>
+          <a onClick={sentboxDetailPageHandler.bind(null,item)}>
           <Row>
           <Col className='col-1 text-center '>
              <Row >
@@ -68,7 +77,7 @@ const SentBox=()=>{
         </Row>
           
        </Card>)}
-       </Container>
+       </Container>}
     </Fragment>
     )
     

@@ -38,7 +38,7 @@
 .side-panel{
    
     border-right: 1px ridge black;
-   
+   position: fixed;
     height: 35rem;
 }
 .side-panel button {
@@ -50,12 +50,15 @@
   }
   .compose-form{
     margin-top: 20px;
-    margin-right: 50px;
     
+    margin-left: 20px;
   }
 .compose-form-col{
-    margin-left: 10px;
+    margin-left: 6rem;
+    margin-top: 200px;
+    height: 100%;
     border-right: 2px ridge black;
+    overflow-y: scroll;
 }
 .unread-count{
     position:absolute;

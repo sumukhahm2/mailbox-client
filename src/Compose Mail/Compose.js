@@ -2,21 +2,18 @@ import React,{Fragment,useState,useRef} from 'react'
 import { Container,Row,Col, Button,Form} from 'react-bootstrap';
 import ProfileIcon from '../images/user.png'
 import './Compose.css'
-import { useSelector,useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import inboxIcon from '../images/receive-mail.png'
 import sentBoxIcon from '../images/send.png'
 import { EditorState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css"
-import { senderData } from '../ReduxStore/FetchEmailData';
 import SentBox from './SentBox';
-import { Days } from '../DateFormat/DateFormat';
 import ComposeIcon from '../images/new-email.png'
-
-
+import useFetch from '../CustomHooks/useFetch';
+import Spinner from '../Spinner';
 import Inbox from './Inbox';
 const Compose=()=>{
-    const dispatch=useDispatch()
     const emailFieldRef=useRef()
     const subjectRef=useRef()
     const [editorState,setState]=useState(EditorState.createEmpty())
@@ -24,14 +21,16 @@ const Compose=()=>{
     const [isCompose,setCompose]=useState(false)
     const [isInbox,setInbox]=useState(false)
     const unread=useSelector((state)=> state.inbox.unreadCount)
-  const onEditorStateChange = (editorState) => {
-   
+    const error=useSelector((state)=> state.error.error)
+    const loading=useSelector((state)=> state.error.loading)
+  const onEditorStateChange=(editorState) => {
    setState(editorState)
   };
   
+  const [request,sendData]=useFetch('https://mailbox-client-database-default-rtdb.firebaseio.com')
     const onSubmitCompose=(event)=>{
       event.preventDefault()
-     
+      
       const sendingData={
         fromemail:localStorage.getItem('email'),
         toemail:emailFieldRef.current.value,
@@ -40,11 +39,9 @@ const Compose=()=>{
         read:false,
         unread:1,
         date:new Date()
-       
       }
-      dispatch(senderData(sendingData))
-     
-     
+      const toEmail=emailFieldRef.current.value.split('@')[0]
+      sendData(sendingData,toEmail)
       
     }
     const sentBoxButtonHandler=()=>{
@@ -62,6 +59,7 @@ const Compose=()=>{
        setSentBox(false)
        setCompose(false)
     }
+    console.log(error)
     return(
      <Fragment>
        <Container className='border main-page' fluid>
@@ -79,9 +77,8 @@ const Compose=()=>{
               <button onClick={sentBoxButtonHandler}><img src={sentBoxIcon}/></button>
               <h5>Sentbox</h5>
               </Row>
-            
             </Col>
-            <Col className='compose-form-col'>
+            <Col className='compose-form-col col-11'>
             {isCompose &&  <Form onSubmit={onSubmitCompose} className='compose-form'>
              <Row>
              <Col className='col-10 email-col d-flex'>
@@ -113,7 +110,8 @@ const Compose=()=>{
           </Row>
           <Row className='send'>
             <Col className='col-1'>
-                <Button type='submit'>Send</Button>
+                <Button type='submit'>{loading?<Spinner/>:'Send'}</Button>
+                {error && <p>{error}</p>}
             </Col>
             <Col className='col-2'>
                 <Row>
@@ -147,13 +145,9 @@ const Compose=()=>{
             {isSentBox  && <SentBox/>}
             {isInbox  && <Inbox/>}
             </Col>
-            
           </Row>
-         
        </Container>
-       
      </Fragment>
     );
-}
-
+    }
 export default Compose

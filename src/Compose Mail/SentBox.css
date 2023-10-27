@@ -20,3 +20,9 @@
     font-size: smaller;
     margin-top: 5px;
 }
+.sentbox-card{
+    cursor: pointer;
+   }
+   .sentbox-card:hover{
+    background-color: rgb(247, 241, 241);
+   }
